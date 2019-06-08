@@ -96,14 +96,13 @@ int	main()
 	superone.meleeAttack("Millions of Skags");
 	superone.rangedAttack("Good Clone of Handsome Jack");
 
-	superone.rename("I AM THE SUPER");
-
 	SuperTrap supertwo(superone);
 
 	superone.vaulthunter_dot_exe("Skagzilla");
-	superone.ninjaShoeBox(trapone);
+	superone.ninjaShoeBox(frag);
 
-	superone.displayStats();
-	supertwo.displayStats();
+	std::cout << std::endl;
+	std::cout << std::endl;
+
 	return (0);
 }
