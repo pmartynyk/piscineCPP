@@ -41,3 +41,23 @@ NinjaTrap & NinjaTrap::operator=(NinjaTrap const & val)
     std::cout << "Assigning Operator Ninja Called" << this->_name << " is ready to fight." << std::endl;
     return *this;
 }
+
+void NinjaTrap::ninjaShoeBox(NinjaTrap & val)
+{
+    std::cout << this->_name << " It`s a ninjaShoeBox for NinjaTrap" << std::endl;
+}
+
+void NinjaTrap::ninjaShoeBox(FragTrap & val)
+{
+    std::cout << this->_name << " It`s a ninjaShoeBox for FragTrap" << std::endl;
+}
+
+void NinjaTrap::ninjaShoeBox(ScavTrap & val)
+{
+    std::cout << this->_name << " It`s a ninjaShoeBox for ScavTrap" << std::endl;
+}
+
+void NinjaTrap::ninjaShoeBox(ClapTrap & val)
+{
+    std::cout << this->_name << " It`s a ninjaShoeBox for ClapTrap" << std::endl;
+}

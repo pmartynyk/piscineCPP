@@ -13,6 +13,8 @@
 #pragma once
 
 #include "ClapTrap.hpp"
+#include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 
 class NinjaTrap : public ClapTrap
 {
@@ -29,5 +31,10 @@ public:
     void corrosive(std::string const & target);
     void shock(std::string const & target);
     void explosive(std::string const & target);
+
+    void ninjaShoeBox(NinjaTrap & val);
+    void ninjaShoeBox(FragTrap & val);
+    void ninjaShoeBox(ScavTrap & val);
+    void ninjaShoeBox(ClapTrap & val);
 };
 

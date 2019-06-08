@@ -12,6 +12,7 @@
 
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
+#include "NinjaTrap.hpp"
 
 int	main()
 {
@@ -66,5 +67,22 @@ int	main()
 	scavone.challengeNewcomer();
 	scavone.challengeNewcomer();
 	scavone.challengeNewcomer();
+
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << "NOW MAIN FOR NinjaTrap" << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	NinjaTrap ninone("I AM A NINJA");
+	ninone.ninjaShoeBox(frag);
+	ninone.ninjaShoeBox(scavone);
+
+	NinjaTrap nintwo;
+	nintwo.ninjaShoeBox(ninone);
+
+	ClapTrap clapone("I AM THE ORIGINAL");
+	nintwo.ninjaShoeBox(clapone);
 	return (0);
 }
