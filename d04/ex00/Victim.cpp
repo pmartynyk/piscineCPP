@@ -1,6 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Victim.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/19 11:13:20 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/19 11:13:24 by pmartyny         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "Victim.hpp"
 #include "Peon.hpp"
+
+Victim::Victim(void)
+{
+    name = "Joe";
+    std::cout << "Some random victim called " << this->name << " just pooped !" << std::endl;
+}
 
 Victim::Victim(std::string name) : name(name)
 {
@@ -20,7 +38,8 @@ Victim::Victim(Victim & val)
 
 Victim & Victim::operator=(Victim const & val)
 {
-    this->name = val.name;
+    if (this != &val)
+        this->name = val.name;
     return *this;
 }
 

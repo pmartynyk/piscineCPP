@@ -1,4 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Sorcerer.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/19 11:13:42 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/19 11:13:43 by pmartyny         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Sorcerer.hpp"
+
+Sorcerer::Sorcerer(void)
+{
+    name = "John Doe";
+    title = "UNKNOWN";
+    std::cout << this->name << ", " << this->title << ", is born!" << std::endl;
+}
 
 Sorcerer::Sorcerer(std::string name, std::string title) : name(name), title(title)
 {
@@ -18,9 +37,11 @@ Sorcerer::Sorcerer(Sorcerer & val)
 
 Sorcerer & Sorcerer::operator=(Sorcerer const& val)
 {
-    this->name = val.name;
-    this->title = val.title;
-
+    if (this != &val)
+    {
+        this->name = val.name;
+        this->title = val.title;
+    }
     return *this;
 }
 
@@ -41,6 +62,6 @@ void Sorcerer::polymorph(Victim const & val) const
 
 std::ostream & operator<<(std::ostream &os, Sorcerer const & val)
 {
-    os << "I am " << val.getName() << ", " << val.getTitle() << ", and I like ponies" << std::endl;
+    os << "I am " << val.getName() << ", " << val.getTitle() << ", and I like ponies !" << std::endl;
     return os;
 }

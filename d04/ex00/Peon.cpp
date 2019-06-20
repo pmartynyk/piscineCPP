@@ -1,9 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Peon.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/19 11:13:03 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/19 11:13:05 by pmartyny         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Peon.hpp"
 #include "Victim.hpp"
 
-Peon::Peon(std::string name) : Victim(name)
+Peon::Peon(void)
 {
-    this->name = name;
+    this->name = "John Doe";
+    std::cout << "Zog zog." << std::endl;
+}
+
+Peon::Peon(std::string name) : name(name)
+{
     std::cout << "Zog zog." << std::endl;
 }
 
@@ -20,7 +37,8 @@ Peon::Peon(Peon & val) : Victim(val)
 
 Peon & Peon::operator=(Peon const & val)
 {
-    this->name = val.name;
+    if (this != &val)
+        this->name = val.name;
     return *this;
 }
 
