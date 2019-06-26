@@ -26,8 +26,6 @@ void helpMenu(int y, int x)
     mvwprintw(help, 3, 2, "SHOOT: Spacebar");
     mvwprintw(help, 5, 2, "MOVE LEFT: <-");
     mvwprintw(help, 7, 2, "MOVE RIGHT: ->");
-    // mvwprintw(help, 9, 2, "SHOOT STRAFE LEFT: 1");
-    // mvwprintw(help, 11, 2, "SHOOT STRAFE RIGHT: 3");
     wrefresh(help);
     wclear(help);
     delwin(help);
@@ -54,20 +52,13 @@ int main(void)
         return 0;
     }
     curs_set(0);
-
     start_color();
     init_pair(1, COLOR_CYAN, COLOR_BLACK);
     init_pair(2, COLOR_RED, COLOR_BLACK);
     init_pair(3, COLOR_YELLOW, COLOR_BLACK);
-    // init_pair(4, COLOR_GREEN, COLOR_BLACK);
-    // init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
-    // init_pair(6, COLOR_BLUE, COLOR_BLACK);
     refresh();
-
     Game *game = new Game(row - 2, col - 2);
-
     WINDOW *menu = newwin(7, 11, (col / 2 - 3), (row / 2) - 5);
-    // system("afplay sound/spaceinvaders.mpeg &");
     while (!game->getStartGame())
     {
         box(menu, 1, 0);
@@ -102,7 +93,6 @@ int main(void)
     }
     clear();
     delwin(menu);
-
     system("afplay sound/bgm.mp3 &");
     int y, x, cnt = 0;
     while (!game->getEndGame())
@@ -151,19 +141,20 @@ int main(void)
         {
             game->moveEnemys();
             game->putEnemysBullet();
-        }
-        if (cnt % game->getEnemySpeed() == 0)
-        {
-            game->moveBigBoss();
-            game->putBigBossBullet();
+            if (game->getLevel() % 2 == 0)
+            {
+                game->moveBigBoss();
+                game->putBigBossBullet();
+            }
         }
         if (cnt % game->getEnemyBulletSpeed() == 0)
         {
             game->moveEnenysBullets();
-            game->moveBigBossBullets();
+            if (game->getLevel() % 2 == 0)
+            {
+                game->moveBigBossBullets();
+            }
         }
-            
-
         cnt++;
         if (cnt > 100000000)
             cnt = 0;
@@ -197,7 +188,6 @@ int main(void)
     }
     delwin(end);
     delete game;
-
     refresh();
     endwin();
     return 0;

@@ -109,6 +109,6 @@ public:
   void moveEnemys(void);
 
   int allKilled(void);
-  
+
   void startNewLevel(void);
 };

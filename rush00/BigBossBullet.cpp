@@ -33,8 +33,7 @@ BigBossBullet &BigBossBullet::operator=(BigBossBullet const &val)
 }
 
 BigBossBullet::~BigBossBullet(void)
-{
-}
+{}
 
 void BigBossBullet::shoot(void)
 {
@@ -45,10 +44,10 @@ void BigBossBullet::shoot(void)
 
 void BigBossBullet::goLeft(void)
 {
-    this->setPosition(this->getXCord() - 1, this->getYCord() - 1, 1);
+    this->setPosition(this->getXCord() - 1, this->getYCord() + 1, 1);
 }
 
 void BigBossBullet::goRight(void)
 {
-    this->setPosition(this->getXCord() + 1, this->getYCord() - 1, 1);
+    this->setPosition(this->getXCord() + 1, this->getYCord() + 1, 1);
 }

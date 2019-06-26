@@ -33,4 +33,5 @@ class BigBoss : public Enemy
     void moveLeft(void);
     void moveUp(void);
     void moveDown(void);
-};
+    // void setLife(int);
+  };

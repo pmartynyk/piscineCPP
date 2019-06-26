@@ -31,7 +31,8 @@ Game::Game(int x, int y) : xCord(x), yCord(y)
     this->enemyCount = 10;
     this->enemySpeed = 100000;
     this->enemy = new Enemy[this->enemyCount];
-    this->bigBossCount = 0;
+    this->bigBossCount = this->level / 2;
+    this->bigBoss = new BigBoss[this->bigBossCount];
     this->bigBossBulletCount = this->bigBossCount * 3;
     this->bigBossBullets = new BigBossBullet[this->bigBossBulletCount];
     putEnemys();
@@ -63,24 +64,12 @@ Game::~Game()
     delete[] this->bullet;
     delete[] this->enemyBullet;
     delete[] this->enemy;
-    delete[] this->bigBoss;
     delete[] this->bigBossBullets;
+    delete[] this->bigBoss;
 }
-
-void Game::setStartGame(void)
-{
-    this->startGame = 1;
-    system("afplay sound/respawn.mp3 &");
-}
-
 int Game::getStartGame(void) const
 {
     return this->startGame;
-}
-
-void Game::setEndGame(void)
-{
-    this->endGame = 1;
 }
 
 int Game::getEndGame(void) const
@@ -88,22 +77,9 @@ int Game::getEndGame(void) const
     return this->endGame;
 }
 
-void Game::setExitGame(void)
-{
-    this->exitGame = 1;
-}
-
 int Game::getExitGame(void) const
 {
     return this->exitGame;
-}
-
-void Game::setMenuPos(int c)
-{
-    if (c == 259 && this->menuPos > 1)
-        this->menuPos = this->menuPos - 2;
-    else if (c == 258 && this->menuPos < 5)
-        this->menuPos = this->menuPos + 2;
 }
 
 int Game::getMenuPos(void) const
@@ -116,40 +92,15 @@ int Game::getBulletSpeed(void)
     return this->bulletSpeed;
 }
 
-void Game::setBulletSpeed(int c)
-{
-    if (c > 0)
-        this->bulletSpeed -= 200;
-    else if (c < 0)
-        this->bulletSpeed += 200;
-}
-
 int Game::getEnemySpeed(void)
 {
     return this->enemySpeed;
-}
-
-void Game::setEnemySpeed(int c)
-{
-    if (c > 0)
-        this->enemySpeed -= 5000;
-    else if (c < 0)
-        this->bulletSpeed += 5000;
 }
 
 int Game::getEnemyBulletSpeed(void)
 {
     return this->enemyBulletSpeed;
 }
-
-void Game::setEnemyBulletSpeed(int c)
-{
-    if (c >= 0)
-        this->enemyBulletSpeed -= 200;
-    else if (c < 0)
-        this->enemyBulletSpeed += 200;
-}
-
 int Game::getLife(void)
 {
     return this->player.getLife();
@@ -181,50 +132,52 @@ int Game::getScore(void) const
     return this->score;
 }
 
-void Game::drawPlayer(void)
+void Game::setStartGame(void)
 {
-    attron(COLOR_PAIR(1));
-    mvaddch(player.getYCord(), player.getXCord(), '^');
-    mvaddch(player.getYCord() + 1, player.getXCord() - 1, '/');
-    mvaddch(player.getYCord() + 1, player.getXCord() - 2, '/');
-    mvaddch(player.getYCord() + 1, player.getXCord() + 1, '\\');
-    mvaddch(player.getYCord() + 1, player.getXCord() + 2, '\\');
-    mvaddch(player.getYCord() + 1, player.getXCord(), '_');
-    attroff(COLOR_PAIR(1));
-    drawEnemy();
-    drawBigBoss();
-    box(stdscr, 0, 0);
-    refresh();
+    this->startGame = 1;
+    system("afplay sound/respawn.mp3 &");
 }
 
-void Game::drawEnemy(void)
+void Game::setEndGame(void)
 {
-    for (int i = 0; i < this->enemyCount; i++)
-    {
-        mvprintw(this->enemy[i].getYCord(), enemy[i].getXCord(), " ");
-        if (this->enemy[i].alive())
-        {
-            attron(COLOR_PAIR(2));
-            mvprintw(this->enemy[i].getYCord(), enemy[i].getXCord(), "#");
-            attroff(COLOR_PAIR(2));
-        }
-    }
+    this->endGame = 1;
 }
 
-void Game::putEnemys(void)
+void Game::setExitGame(void)
 {
-    int tmp;
-    for (int i = 0; i < this->enemyCount; i++)
-    {
-        tmp = (yCord / 10);
-        tmp = (tmp < 1 ? 1 : tmp);
-        this->enemy[i].setCord(2 + (rand() % xCord + 3), 1 + (rand() % tmp + 1));
-        this->enemy[i].setLife(1);
-    }
-    this->bigBossCount++;
-    bigBoss = new BigBoss[bigBossCount];
-    putBigBoss();
-    drawBigBoss();
+    this->exitGame = 1;
+}
+
+void Game::setMenuPos(int c)
+{
+    if (c == 259 && this->menuPos > 1)
+        this->menuPos = this->menuPos - 2;
+    else if (c == 258 && this->menuPos < 5)
+        this->menuPos = this->menuPos + 2;
+}
+
+void Game::setBulletSpeed(int c)
+{
+    if (c > 0)
+        this->bulletSpeed -= 200;
+    else if (c < 0)
+        this->bulletSpeed += 200;
+}
+
+void Game::setEnemySpeed(int c)
+{
+    if (c > 0)
+        this->enemySpeed -= 5000;
+    else if (c < 0)
+        this->bulletSpeed += 5000;
+}
+
+void Game::setEnemyBulletSpeed(int c)
+{
+    if (c >= 0)
+        this->enemyBulletSpeed -= 200;
+    else if (c < 0)
+        this->enemyBulletSpeed += 200;
 }
 
 void Game::playGame(int c)
@@ -249,84 +202,44 @@ void Game::playGame(int c)
     drawPlayer();
 }
 
-void Game::shoot(void)
+void Game::drawPlayer(void)
 {
-    for (int i = 0; i < this->bulletCount; i++)
+    attron(COLOR_PAIR(1));
+    mvaddch(player.getYCord(), player.getXCord(), '^');
+    mvaddch(player.getYCord() + 1, player.getXCord() - 1, '/');
+    mvaddch(player.getYCord() + 1, player.getXCord() - 2, '/');
+    mvaddch(player.getYCord() + 1, player.getXCord() + 1, '\\');
+    mvaddch(player.getYCord() + 1, player.getXCord() + 2, '\\');
+    mvaddch(player.getYCord() + 1, player.getXCord(), '_');
+    attroff(COLOR_PAIR(1));
+    drawEnemy();
+    drawBigBoss();
+    box(stdscr, 0, 0);
+    refresh();
+}
+
+void Game::putEnemys(void)
+{
+    int tmp;
+    for (int i = 0; i < this->enemyCount; i++)
     {
-        if (!this->bullet[i].alive())
-        {
-            this->bullet[i].setPosition(player.getXCord(), player.getYCord(), 1);
-            system("afplay sound/shoot.wav &");
-            return;
-        }
+        tmp = (yCord / 10);
+        tmp = (tmp < 1 ? 1 : tmp);
+        this->enemy[i].setCord(2 + (rand() % xCord + 3), 1 + (rand() % tmp + 1));
+        this->enemy[i].setLife(1);
     }
 }
 
-int Game::allKilled(void)
+void Game::drawEnemy(void)
 {
     for (int i = 0; i < this->enemyCount; i++)
     {
+        mvprintw(this->enemy[i].getYCord(), enemy[i].getXCord(), " ");
         if (this->enemy[i].alive())
-            return 0;
-    }
-    for (int i = 0; i < this->bigBossCount; i++)
-    {
-        if (this->bigBoss[i].alive())
-            return 0;
-    }
-    return 1;
-}
-
-void Game::moveBullets(void)
-{
-    for (int i = 0; i < this->bulletCount; i++)
-    {
-        if (this->bullet[i].alive())
         {
-            this->bullet[i].clearBullet();
-            this->bullet[i].goUp();
-            this->bullet[i].shoot();
-            if (this->bullet[i].getYCord() == 1)
-            {
-                this->bullet[i].setLife(0);
-                this->bullet[i].clearBullet();
-            }
-        }
-        for (int j = 0; j < this->enemyCount; j++)
-        {
-            if (this->enemy[j].alive())
-            {
-                if (this->enemy[j].isHit(this->bullet[i].getXCord(), this->bullet[i].getYCord()))
-                {
-                    this->bullet[i].setLife(0);
-                    this->bullet[i].clearBullet();
-                    this->score += 5;
-                    system("afplay sound/invaderkilled.wav &");
-                    if (allKilled())
-                    {
-                        this->level++;
-                        startNewLevel();
-                    }
-                }
-            }
-        }
-        for (int j = 0; j < this->bigBossCount; j++)
-        {
-            if (this->bigBoss[j].alive())
-            {
-                if (this->bigBoss[j].isHit(this->bullet[i].getXCord(), this->bullet[i].getYCord()))
-                {
-                    this->bullet[i].setLife(0);
-                    this->bullet[i].clearBullet();
-                    this->score += 10;
-                    system("afplay sound/invaderkilled.wav &");
-                    if (allKilled())
-                    {
-                        this->level++;
-                        startNewLevel();
-                    }
-                }
-            }
+            attron(COLOR_PAIR(2));
+            mvprintw(this->enemy[i].getYCord(), enemy[i].getXCord(), "#");
+            attroff(COLOR_PAIR(2));
         }
     }
 }
@@ -364,6 +277,92 @@ void Game::moveEnemys(void)
             }
         }
     }
+}
+
+
+void Game::shoot(void)
+{
+    for (int i = 0; i < this->bulletCount; i++)
+    {
+        if (!this->bullet[i].alive())
+        {
+            this->bullet[i].setPosition(player.getXCord(), player.getYCord(), 1);
+            system("afplay sound/shoot.wav &");
+            return;
+        }
+    }
+}
+
+void Game::moveBullets(void)
+{
+    for (int i = 0; i < this->bulletCount; i++)
+    {
+        if (this->bullet[i].alive())
+        {
+            this->bullet[i].clearBullet();
+            this->bullet[i].goUp();
+            this->bullet[i].shoot();
+            if (this->bullet[i].getYCord() == 1)
+            {
+                this->bullet[i].setLife(0);
+                this->bullet[i].clearBullet();
+            }
+        }
+        for (int j = 0; j < this->enemyCount; j++)
+        {
+            if (this->enemy[j].alive())
+            {
+                if (this->enemy[j].isHit(this->bullet[i].getXCord(), this->bullet[i].getYCord()))
+                {
+                    this->bullet[i].setLife(0);
+                    this->bullet[i].clearBullet();
+                    this->score += 5;
+                    system("afplay sound/invaderkilled.wav &");
+                    if (allKilled())
+                    {
+                        this->level++;
+                        startNewLevel();
+                        return;
+                    }
+                }
+            }
+        }
+        for (int k = 0; k < this->bigBossCount; k++)
+        {
+            if (this->bigBoss[k].alive())
+            {
+                if (this->bullet[i].alive() && this->bigBoss[k].isHit(this->bullet[i].getXCord(), this->bullet[i].getYCord()))
+                {
+                    this->bullet[i].setLife(0);
+                    this->bullet[i].clearBullet();
+                    this->score += 10;
+                    system("afplay sound/invaderkilled.wav &");
+                    if (allKilled())
+                    {
+                        this->level++;
+                        startNewLevel();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+int Game::allKilled(void)
+{
+    for (int i = 0; i < this->enemyCount; i++)
+    {
+        if (this->enemy[i].alive())
+            return 0;
+    }
+    for (int i = 0; i < this->bigBossCount; i++)
+    {
+        if (this->bigBoss[i].alive())
+            return 0;
+    }
+    return 1;
 }
 
 void Game::putEnemysBullet(void)
@@ -432,7 +431,7 @@ void Game::drawBigBoss()
                 attron(COLOR_PAIR(1));
             else
                 attron(COLOR_PAIR(3));
-            mvprintw(this->bigBoss[i].getYCord(), this->bigBoss[i].getXCord(), "o");
+            mvprintw(this->bigBoss[i].getYCord(), this->bigBoss[i].getXCord(), "^");
             mvprintw(this->bigBoss[i].getYCord() + 1, this->bigBoss[i].getXCord() + 1, "v");
             mvprintw(this->bigBoss[i].getYCord() + 1, this->bigBoss[i].getXCord(), "v");
             mvprintw(this->bigBoss[i].getYCord() + 1, this->bigBoss[i].getXCord() - 1, "v");
@@ -490,9 +489,11 @@ void Game::putBigBossBullet()
     {
         if (this->bigBoss[i].alive())
         {
-            for (int j = 0; j < 3; j++)
+            if (!this->bigBossBullets[i * 3].alive() && !this->bigBossBullets[i * 3 + 1].alive() && !this->bigBossBullets[i * 3 + 2].alive())
             {
-                this->bigBossBullets[i + j].setPosition(this->bigBoss[i].getXCord(), this->bigBoss[i].getYCord() - 2, 1);
+                this->bigBossBullets[i * 3].setPosition(this->bigBoss[i].getXCord(), this->bigBoss[i].getYCord() + 1, 1);
+                this->bigBossBullets[i * 3 + 1].setPosition(this->bigBoss[i].getXCord() - 1, this->bigBoss[i].getYCord() + 1, 1);
+                this->bigBossBullets[i * 3 + 2].setPosition(this->bigBoss[i].getXCord() + 1, this->bigBoss[i].getYCord() + 1, 1);
             }
         }
     }
@@ -500,36 +501,33 @@ void Game::putBigBossBullet()
 
 void Game::moveBigBossBullets(void)
 {
-    mvprintw(yCord - 10, 5, "%d", this->bigBossBulletCount);
-
     for (int i = 0; i < this->bigBossBulletCount; i++)
     {
-        mvprintw(yCord - i, 5, "ok");
         if (this->bigBossBullets[i].alive())
         {
             this->bigBossBullets[i].clearBullet();
             if (i % 3 == 1)
                 this->bigBossBullets[i].goLeft();
             else if (i % 3 == 2)
-                this->bigBossBullets[i].goDown();
-            else if (i % 3 == 0)
                 this->bigBossBullets[i].goRight();
+            else if (i % 3 == 0)
+                this->bigBossBullets[i].goDown();
             this->bigBossBullets[i].shoot();
-            if (this->bigBossBullets[i].getYCord() == this->yCord + 1 || this->bigBossBullets[i].getXCord() == 3 || this->bigBossBullets[i].getXCord() == this->xCord - 2)
+            if (this->bigBossBullets[i].getYCord() == this->yCord + 1 || this->bigBossBullets[i].getXCord() == 1 || this->bigBossBullets[i].getXCord() == this->xCord - 2)
             {
                 this->bigBossBullets[i].setLife(0);
                 this->bigBossBullets[i].clearBullet();
             }
         }
-        // if (this->bigBossBullets[i].alive() &&
-        //     this->player.isHit(this->bigBossBullets[i].getXCord(), this->bigBossBullets[i].getYCord()))
-        // {
-        //     if (this->player.getLife() == 0)
-        //         setEndGame();
-        //     this->bigBossBullets[i].setLife(0);
-        //     this->bigBossBullets[i].clearBullet();
-        //     system("afplay sound/explosion.wav &");
-        // }
+        if (this->bigBossBullets[i].alive() &&
+            this->player.isHit(this->bigBossBullets[i].getXCord(), this->bigBossBullets[i].getYCord()))
+        {
+            if (this->player.getLife() == 0)
+                setEndGame();
+            this->bigBossBullets[i].setLife(0);
+            this->bigBossBullets[i].clearBullet();
+            system("afplay sound/explosion.wav &");
+        }
     }
 }
 
@@ -543,7 +541,6 @@ void Game::startNewLevel(void)
             this->bullet[i].setLife(0);
         }
     }
-
     for (int i = 0; i < this->enemyBulletCount; i++)
     {
         if (this->enemyBullet[i].alive())
@@ -552,35 +549,40 @@ void Game::startNewLevel(void)
             this->enemyBullet[i].setLife(0);
         }
     }
-
+    for (int i = 0; i < this->bigBossBulletCount; i++)
+    {
+        if (this->bigBossBullets[i].alive())
+        {
+            this->bigBossBullets[i].clearBullet();
+            this->bigBossBullets[i].setLife(0);
+        }
+    }
     delete[] this->bullet;
-    delete[] this->enemyBullet;
     delete[] this->enemy;
-    delete[] this->bigBoss;
-    delete[] this->bigBossBullets;
-
-    this->bulletCount += 2;
+    delete[] this->enemyBullet;
+    this->bulletCount += 1;
     this->bullet = new Bullet[this->bulletCount];
-    this->enemyBulletCount += 3;
+    this->enemyBulletCount += 2;
     this->enemyBullet = new EnemyBullet[this->enemyBulletCount];
-    this->enemyCount += 3;
+    this->enemyCount += 2;
     this->enemy = new Enemy[this->enemyCount];
+    if (this->level % 2 == 0)
+    {
+        delete[] this->bigBoss;
+        this->bigBossCount = this->level / 2;
+        this->bigBoss = new BigBoss[bigBossCount];
+        delete[] this->bigBossBullets;
+        this->bigBossBulletCount = this->bigBossCount * 3;
+        this->bigBossBullets = new BigBossBullet[this->bigBossBulletCount];
+        putBigBoss();
+    }
     if (this->player.getLife() < 3)
         this->player.addLife(1);
-    if (this->level % 1 == 0)
-    {
-        this->bigBossCount++;
-        bigBoss = new BigBoss[bigBossCount];
-        putBigBoss();
-        drawBigBoss();
-    }
-
     setEnemyBulletSpeed(1);
     setEnemySpeed(1);
     setBulletSpeed(1);
 
     putEnemys();
     drawPlayer();
-    putEnemysBullet();
     system("afplay sound/respawn.mp3 &");
 }

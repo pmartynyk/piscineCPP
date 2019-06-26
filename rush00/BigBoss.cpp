@@ -42,6 +42,11 @@ BigBoss::~BigBoss(void)
 {
 }
 
+// void BigBoss::setLife(int c)
+// {
+//     this->l
+// }
+
 int BigBoss::isHit(int x, int y)
 {
     if ((this->getXCord() == x || this->getXCord() + 1 == x ||

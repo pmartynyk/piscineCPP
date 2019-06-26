@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Fixed.class.cpp                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/06 12:59:46 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/06/06 12:59:47 by pmartyny         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Fixed.class.hpp"
 
 Fixed::Fixed(void) : fpValue(0)
@@ -22,19 +10,17 @@ Fixed::~Fixed(void)
     std::cout << "Destructor called" << std::endl;
 }
 
-Fixed::Fixed(Fixed const & val)
+Fixed::Fixed(Fixed & val)
 {
     std::cout << "Copy constructor called" << std::endl;
-    *this = val;    
+    if (this != &val)
+        *this = val;
 }
 
-Fixed & Fixed::operator=(Fixed const & val)
+Fixed &Fixed::operator=(Fixed const & val)
 {
     std::cout << "Assignation constructor called" << std::endl;
-    if (this != &val)
-    {
-        this->fpValue = val.getRawBits();
-    }    
+    this->fpValue = val.getRawBits();
     return (*this);
 }
 
@@ -49,4 +35,3 @@ void Fixed::setRawBits(int const val)
     this->fpValue = val;
     std::cout << "setRawBits member function called" << std::endl;
 }
-

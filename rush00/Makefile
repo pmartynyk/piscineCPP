@@ -28,10 +28,10 @@ FLAG	= -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	g++ -std=c++11 $(FLAG) $(LIBS) $(SRC) $^ -o $(NAME)
+	clang++ -std=c++11 $(FLAG) $(LIBS) $(SRC) $^ -o $(NAME)
 
 ./%.o: ./%.cpp
-	g++ -c $< -o $@
+	clang++ -c $< -o $@
 
 clean:
 	/bin/rm -f *.o
