@@ -35,3 +35,5 @@ void Fixed::setRawBits(int const val)
     this->fpValue = val;
     std::cout << "setRawBits member function called" << std::endl;
 }
+
+int	const	Fixed::num = 8;
