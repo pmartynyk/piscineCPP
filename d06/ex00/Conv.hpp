@@ -6,7 +6,7 @@
 /*   By: pmartyny <pmartyny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 09:22:03 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/07/03 15:18:12 by pmartyny         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:23:02 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <cmath>
 
 class Conv
 {
   private:
     std::string value;
-    // char    resChar;
-    // int resInt;
-    // float   resFloat;
-    // double  resDouble;
+
   public:
     Conv(void);
     Conv(std::string inputValue);

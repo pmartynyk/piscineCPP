@@ -6,7 +6,7 @@
 /*   By: pmartyny <pmartyny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 09:21:58 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/07/03 15:25:38 by pmartyny         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:22:57 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void Conv::convertToChar(void)
         std::cout << "char: ";
         int ret;
         ret = std::stoi(this->value);
-        if (ret <= 33 || ret >= 126)
+        if (!std::isprint(ret))
             std::cout << "Non displayable" << std::endl;
         else
             std::cout << static_cast<char>(ret) << std::endl;
@@ -59,7 +59,12 @@ void Conv::convertToInt(void)
     try
     {
         std::cout << "int: ";
-        std::cout << static_cast<int>(std::stoi(this->value)) << std::endl;
+        int ret;
+        ret = std::stoi(this->value);
+        if (std::isnan(ret) || std::isinf(ret))
+            throw ConversionException();
+        else
+            std::cout << static_cast<int>(std::stoi(this->value)) << std::endl;
     }
     catch (const std::exception &e)
     {
@@ -121,5 +126,5 @@ Conv::ConversionException::~ConversionException(void) throw()
 
 const char *Conv::ConversionException::what(void) const throw()
 {
-    return "Imposible conversion!";
+    return "imposible";
 }
