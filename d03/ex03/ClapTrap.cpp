@@ -5,20 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/07 16:42:08 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/06/07 16:42:09 by pmartyny         ###   ########.fr       */
+/*   Created: 2019/06/27 15:03:17 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/27 15:03:19 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void) : _hp(100), _maxhp(100), _enp(50), _menp(50), _level(1), _name("Scav"), _mad(20), _rad(15), _adr(3)
+ClapTrap::ClapTrap(void) : _hp(100), _maxhp(100), _enp(50), _menp(50), _level(1), _mad(20), _rad(15), _adr(3)
 {
+    this->_name = "Clap";
     std::cout << "Default constuctor for ClapTrap colled: " << this->_name << " is ready to fight!" << std::endl;
 };
 
-ClapTrap::ClapTrap(std::string name) : _hp(100), _maxhp(100), _enp(50), _menp(50), _level(1), _name(name), _mad(20), _rad(15), _adr(3)
+ClapTrap::ClapTrap(std::string name) : _hp(100), _maxhp(100), _enp(50), _menp(50), _level(1), _mad(20), _rad(15), _adr(3)
 {
+    this->_name = name;
     std::cout << "Constuctor for ClapTrap colled: " << this->_name << " is ready to fight!" << std::endl;
 };
 
@@ -81,7 +83,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-    if (this->_hp + amount > this->_maxhp)
+    if (amount > (unsigned)(this->_maxhp - this->_hp))
         this->_hp = this->_maxhp;
     else
         this->_hp = this->_hp + amount;

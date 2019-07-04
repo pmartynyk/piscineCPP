@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/19 11:12:34 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/06/19 11:12:36 by pmartyny         ###   ########.fr       */
+/*   Created: 2019/06/29 09:31:47 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/29 09:31:48 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AWeapon.hpp"
 
-AWeapon::AWeapon(std::string const & name, int action_points, int damage) : name(name), action_points(action_points), damage(damage)
+AWeapon::AWeapon(std::string const & name, int action_points, int damage) : name(name), damage(damage), action_points(action_points)
 {}
 
 AWeapon::~AWeapon(void)

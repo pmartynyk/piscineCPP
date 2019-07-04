@@ -444,7 +444,11 @@ void Game::drawBigBoss()
 }
 
 void Game::moveBigBoss(void)
-{
+{    
+    int col = 0;
+    int row = 0;
+    getmaxyx(stdscr, col, row);
+
     for (int i = 0; i < bigBossCount; i++)
     {
         if (this->bigBoss[i].alive())
@@ -460,7 +464,11 @@ void Game::moveBigBoss(void)
         float tmp = 1.0 * rand() / RAND_MAX;
         if (this->bigBoss[i].alive())
         {
-            if (tmp < 0.5)
+            if (this->bigBoss[i].getXCord() >= row - 3)
+                this->bigBoss[i].moveLeft();
+            else if (this->bigBoss[i].getXCord() <= -1 )
+                this->bigBoss[i].moveRight();
+            else if (tmp < 0.5)
             {
                 if (this->bigBoss[i].getXCord() > 2)
                     this->bigBoss[i].moveRight();

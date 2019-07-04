@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/03 19:03:17 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/06/03 19:03:24 by pmartyny         ###   ########.fr       */
+/*   Created: 2019/06/24 16:24:46 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/24 16:24:49 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phone_book.hpp"
 
-void    add_contact(Phone_book *addr, size_t *total)
+void add_contact(Phone_book *addr, size_t *total)
 {
     std::string str;
     if (*total == 8)
@@ -63,13 +63,14 @@ std::string check_len(std::string str)
     len = str.size();
     if (len < 10)
     {
-        while(len < 10){
+        while (len < 10)
+        {
             std::cout << " ";
             len++;
         }
         return (str);
     }
-    else 
+    else
     {
         str.erase(9, len);
         std::cout << str;
@@ -77,27 +78,62 @@ std::string check_len(std::string str)
     }
 }
 
-void    search_contact(Phone_book *addr, size_t *total)
+void displayInfo(Phone_book *addr, int n)
+{
+    std::cout << "First Name: " << addr[n].get_info(1) << std::endl;
+    std::cout << "Last Name: " << addr[n].get_info(2) << std::endl;
+    std::cout << "Nickname: " << addr[n].get_info(3) << std::endl;
+    std::cout << "Login: " << addr[n].get_info(4) << std::endl;
+    std::cout << "Postal Address: " << addr[n].get_info(5) << std::endl;
+    std::cout << "Email Address: " << addr[n].get_info(6) << std::endl;
+    std::cout << "Phone Number: " << addr[n].get_info(7) << std::endl;
+    std::cout << "Birthdate: " << addr[n].get_info(8) << std::endl;
+    std::cout << "Favorite Meal: " << addr[n].get_info(9) << std::endl;
+    std::cout << "Underwear Color: " << addr[n].get_info(10) << std::endl;
+    std::cout << "Darkest Secret: " << addr[n].get_info(11) << std::endl;
+}
+
+void search_contact(Phone_book *addr, size_t *total)
 {
     size_t i;
+    std::string in;
 
     i = 0;
     std::cout << "|     INDEX|FIRST NAME| LAST NAME|  NICKNAME|" << std::endl;
     while (i < *total)
     {
-        std::cout << "|         "<< (i + 1) << "|";    
+        std::cout << "|         " << (i + 1) << "|";
         std::cout << check_len(addr[i].get_info(1)) << "|";
-        std::cout << check_len(addr[i].get_info(2)) << "|";    
+        std::cout << check_len(addr[i].get_info(2)) << "|";
         std::cout << check_len(addr[i].get_info(3)) << "|" << std::endl;
-        i++;   
+        i++;
     }
+    std::cout << std::endl;
+    std::cout << "Please enter the number of contact." << std::endl;
+    std::cin >> in;
+    if (in == "1" && (addr[0].get_info(1) != ""))
+        displayInfo(addr, 0);
+    else if (in == "2" && (addr[1].get_info(1) != ""))
+        displayInfo(addr, 1);
+    else if (in == "3" && (addr[2].get_info(1) != ""))
+        displayInfo(addr, 2);
+    else if (in == "4" && (addr[3].get_info(1) != ""))
+        displayInfo(addr, 3);
+    else if (in == "5" && (addr[4].get_info(1) != ""))
+        displayInfo(addr, 4);
+    else if (in == "6" && (addr[5].get_info(1) != ""))
+        displayInfo(addr, 5);
+    else if (in == "7" && (addr[6].get_info(1) != ""))
+        displayInfo(addr, 6);
+    else if (in == "8" && (addr[7].get_info(1) != ""))
+        displayInfo(addr, 7);
 }
 
-int     main(void)
+int main(void)
 {
     std::string s;
-    Phone_book  addr[8];
-    size_t      total;
+    Phone_book addr[8];
+    size_t total;
 
     total = 0;
     while (1)
@@ -110,9 +146,8 @@ int     main(void)
             search_contact(addr, &total);
         else if (s.compare("EXIT") == 0)
             exit(0);
-        else 
+        else
             std::cout << "Wrong command" << std::endl;
     }
     return (0);
 }
-

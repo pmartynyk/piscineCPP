@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/07 12:57:28 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/06/07 12:57:30 by pmartyny         ###   ########.fr       */
+/*   Created: 2019/06/27 15:00:20 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/27 15:00:21 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void FragTrap::takeDamage(unsigned int amount)
 
 void FragTrap::beRepaired(unsigned int amount)
 {
-    if (this->_hp + amount > this->_maxhp)
+    if (amount > (unsigned)(this->_maxhp - this->_hp))
         this->_hp = this->_maxhp;
     else 
         this->_hp = this->_hp + amount;

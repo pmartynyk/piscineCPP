@@ -48,7 +48,8 @@ int main(void)
     getmaxyx(stdscr, col, row);
     if (col < 8 || row < 20)
     {
-        std::cout << "Termonal is way to small, for normal gameplay!" << std::endl;
+        endwin();
+        std::cout << "Termonal is way too small, for normal gameplay!" << std::endl;
         return 0;
     }
     curs_set(0);

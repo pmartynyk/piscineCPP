@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/07 16:15:10 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/06/07 16:15:11 by pmartyny         ###   ########.fr       */
+/*   Created: 2019/06/27 15:00:32 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/27 15:00:33 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void ScavTrap::takeDamage(unsigned int amount)
 
 void ScavTrap::beRepaired(unsigned int amount)
 {
-    if (this->_hp + amount > this->_maxhp)
+    if (amount > (unsigned)(this->_maxhp - this->_hp))
         this->_hp = this->_maxhp;
     else 
         this->_hp = this->_hp + amount;

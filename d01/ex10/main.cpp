@@ -15,17 +15,18 @@
 #include <fstream>
 #include <cerrno>
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     std::string line = "";
     size_t x;
     x = 1;
-    while(argc == 1){
+    while (argc == 1)
+    {
         std::getline(std::cin, line);
         if (std::cin.eof())
         {
             std::cout << line << std::endl;
-            break ;
+            break;
         }
         std::cout << line << std::endl;
     }
@@ -37,15 +38,16 @@ int main(int argc, char** argv)
             line = argv[i];
             if (!line.compare("-"))
             {
-                while(x)
+                while (x)
                 {
                     std::getline(std::cin, line);
-                    if (std::cin.eof())
+                    if (!std::cin.eof())
                     {
                         std::cout << line << std::endl;
-                        x = 0;
                     }
-                }       
+                    if (std::cin.eof())
+                        x = 0;
+                }
             }
             else
             {
@@ -59,10 +61,10 @@ int main(int argc, char** argv)
                     }
                     line = "";
                 }
-                else 
+                else
                 {
                     std::cout << strerror(errno) << std::endl;
-                }            
+                }
                 fileIn.close();
             }
             i++;

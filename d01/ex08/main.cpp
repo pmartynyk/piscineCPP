@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 	}
 	function = av[1];
 	target = av[2];
-	if ((function.compare("meleeAttack") == 0) || (function.compare("rangeAttack") == 0)
+	if ((function.compare("meleeAttack") == 0) || (function.compare("rangedAttack") == 0)
 		|| (function.compare("intimidatingShout") == 0))
 	{
 		if (target.compare("") == 0)

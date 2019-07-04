@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/06/03 18:44:50 by pmartyny          #+#    #+#              #
-#    Updated: 2019/06/03 18:44:52 by pmartyny         ###   ########.fr        #
+#    Created: 2019/06/24 16:25:32 by pmartyny          #+#    #+#              #
+#    Updated: 2019/06/24 16:25:34 by pmartyny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,10 @@ FLAG	= -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	g++ $(CFLAG) $(SRC) $^ -o $(NAME)
+	clang++ $(FLAG) $(SRC) $^ -o $(NAME)
 
 ./objects/%.o: ./sources/%.cpp
-	g++ -c $< -o $@
+	clang++ -c $< -o $@
 
 clean:
 	/bin/rm -f *.o

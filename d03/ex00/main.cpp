@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/07 12:57:32 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/06/07 12:57:33 by pmartyny         ###   ########.fr       */
+/*   Created: 2019/06/27 14:58:53 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/27 14:58:57 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ int	main()
 	trapone.beRepaired(50);
 	trapone.takeDamage(120);
 	trapone.beRepaired(500);
-	// trapone.rename("4LL-MT");
 	trapone.beRepaired(20);
 
 	FragTrap traptwo(trapone);
-	// traptwo.rename("K1LL-B0T");
 	traptwo.meleeAttack("4LL-MT");
 	trapone.takeDamage(30);
 
@@ -38,10 +36,5 @@ int	main()
 
 	FragTrap trapthree("Stacy");
 	std::cout << std::endl;
-
-	// trapone.displayStats();
-	// traptwo.displayStats();
-	// trapthree.displayStats();
-	
 	return (0);
 }

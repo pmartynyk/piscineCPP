@@ -5,20 +5,19 @@
 #                                                     +:+ +:+         +:+      #
 #    By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/06/03 18:44:50 by pmartyny          #+#    #+#              #
-#    Updated: 2019/06/03 18:44:52 by pmartyny         ###   ########.fr        #
+#    Created: 2019/06/24 16:25:10 by pmartyny          #+#    #+#              #
+#    Updated: 2019/06/24 16:25:11 by pmartyny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= phone_book
-INCL	= phone_book.hpp
 SRC		= phone_book.cpp
 FLAG	= -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	g++ $(CFLAG) $(SRC) -I$(INCL) $^ -o $(NAME)
+	clang++ $(FLAG) $(SRC) $^ -o $(NAME)
 
 clean:
 	/bin/rm -f *.o

@@ -28,7 +28,7 @@ FLAG	= -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	clang++ -std=c++11 $(FLAG) $(LIBS) $(SRC) $^ -o $(NAME)
+	clang++ $(FLAG) $(LIBS) $(SRC) $^ -o $(NAME)
 
 ./%.o: ./%.cpp
 	clang++ -c $< -o $@

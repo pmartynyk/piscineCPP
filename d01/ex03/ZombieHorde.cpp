@@ -32,7 +32,7 @@ ZombieHorde::~ZombieHorde(void)
 
 void    ZombieHorde::announce(void)
 {
-    int i;
+    size_t i;
     i = 0;
 
     while(i < this->number){

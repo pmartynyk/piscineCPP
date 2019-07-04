@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/07 16:15:10 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/06/07 16:15:11 by pmartyny         ###   ########.fr       */
+/*   Created: 2019/06/27 15:05:51 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/27 15:05:52 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ ScavTrap::ScavTrap(void)
 
 ScavTrap::ScavTrap(std::string name)
 {
-    ClapTrap::setData(100, 100, 50, 50, 1, "Scav", 20, 15, 3);
+    ClapTrap::setData(100, 100, 50, 50, 1, name, 20, 15, 3);
     std::cout << "Constuctor for ScavTrap colled: " << this->_name << " is ready to fight!" << std::endl;
 };
 

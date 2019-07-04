@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmartyny <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/07 18:46:15 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/06/07 18:46:17 by pmartyny         ###   ########.fr       */
+/*   Created: 2019/06/27 15:05:40 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/06/27 15:05:41 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@ NinjaTrap & NinjaTrap::operator=(NinjaTrap const & val)
 
 void NinjaTrap::ninjaShoeBox(NinjaTrap & val)
 {
-    std::cout << this->_name << " It`s a ninjaShoeBox for NinjaTrap" << std::endl;
+    std::cout << this->_name << " It`s a ninjaShoeBox for NinjaTrap" << val._name << std::endl;
 }
 
 void NinjaTrap::ninjaShoeBox(FragTrap & val)
 {
-    std::cout << this->_name << " It`s a ninjaShoeBox for FragTrap" << std::endl;
+    std::cout << this->_name << " It`s a ninjaShoeBox for FragTrap" << val._name << std::endl;
 }
 
 void NinjaTrap::ninjaShoeBox(ScavTrap & val)
 {
-    std::cout << this->_name << " It`s a ninjaShoeBox for ScavTrap" << std::endl;
+    std::cout << this->_name << " It`s a ninjaShoeBox for ScavTrap" << val._name << std::endl;
 }
 
 void NinjaTrap::ninjaShoeBox(ClapTrap & val)
 {
-    std::cout << this->_name << " It`s a ninjaShoeBox for ClapTrap" << std::endl;
+    std::cout << this->_name << " It`s a ninjaShoeBox for ClapTrap" << val._name << std::endl;
 }
