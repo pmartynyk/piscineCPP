@@ -5,40 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmartyny <pmartyny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/04 15:28:41 by pmartyny          #+#    #+#             */
-/*   Updated: 2019/07/04 17:37:34 by pmartyny         ###   ########.fr       */
+/*   Created: 2019/07/06 10:44:35 by pmartyny          #+#    #+#             */
+/*   Updated: 2019/07/06 11:44:37 by pmartyny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <string>
-#include "Array.hpp"
-#include <cmath>
+#include "mutantstack.hpp"
+#include <algorithm>
 
 int main(void)
 {
-    srand(time(0));
-    int n = rand() % 10;
-    Array<int> test(n);
-    try
+    Mutantstack<int> mstack;
+    mstack.push(5);
+    mstack.push(17);
+    std::cout << "top: " << mstack.top() << std::endl;
+    mstack.pop();
+    std::cout << "size: " << mstack.size() << std::endl;
+    mstack.push(3);
+    mstack.push(5);
+    mstack.push(737);
+    Mutantstack<int>::iterator it = mstack.begin();
+    Mutantstack<int>::iterator ite = mstack.end();
+    ++it;
+    --it;
+    while (it != ite)
     {
-        unsigned int i = 0;
-        while (i < test.getSize())
-        {
-            test[i] = rand() % 100;
-            i++;
-        }
-        i = 0;
-        while (i <= test.getSize())
-        {
-            std::cout << "Array[" << i << "] Content: " << test[i] << std::endl;
-            i++;
-        }
+        std::cout << *it << std::endl;
+        ++it;
     }
-    catch (std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
+    std::stack<int> s(mstack);
 
-    return (0);
+    return 0;
 }

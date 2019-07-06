@@ -6,7 +6,7 @@
 #    By: pmartyny <pmartyny@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 18:44:50 by pmartyny          #+#    #+#              #
-#    Updated: 2019/07/04 15:59:54 by pmartyny         ###   ########.fr        #
+#    Updated: 2019/07/05 13:00:11 by pmartyny         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,18 @@ NAME	= ex02
 
 SRC		= main.cpp
 
+OBJ		= $(SRC:.cpp=.o)
 
 FLAG	= -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	clang++ $(FLAG) $(SRC) $^ -o $(NAME)
+	clang++ $(FLAG) $^ -o $(NAME)
 
 ./%.o: ./%.cpp
 	clang++ $(FLAG) -c $< -o $@
+
 clean:
 	/bin/rm -f *.o
 
